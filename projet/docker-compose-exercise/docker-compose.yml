@@ -1,0 +1,27 @@
+# @format
+
+version: "3"
+services:
+  database:
+    image: koenkk/docker-compose-exercise-database
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: movie123
+    networks:
+      - docker-compose-exercise
+    restart: always
+
+  webapp:
+    image: koenkk/docker-compose-exercise-webapp
+    container_name: webapp
+    ports:
+      - "8080:80"
+    networks:
+      - docker-compose-exercise
+    depends_on:
+      - database
+    restart: always
+
+networks:
+  docker-compose-exercise:
+    driver: bridge
